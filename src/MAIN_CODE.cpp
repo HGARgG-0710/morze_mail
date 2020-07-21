@@ -33,32 +33,27 @@ volatile int timePressed = 0;//it counts in millis
 char *Message1 = new char[50];
 char *Message2 = new char[50];
 
-void PrintAtLCDFunct()
-{
+void PrintAtLCDFunct() {
   lcd.clear();
 
-  if (strlen(Message1) >= 8)
-  {
+  if (strlen(Message1) >= 8) {
     lcd.setCursor(0, 0);
     char *cutMessage1 = Message1 + strlen(Message1) - 8;
     lcd.print(cutMessage1);
   }
 
-  if (strlen(Message2) >= 8)
-  {
+  if (strlen(Message2) >= 8) {
     lcd.setCursor(0, 1);
     char *cutMessage2 = Message1 + strlen(Message2) - 8;
     lcd.print(cutMessage2);
   }
 
-  if (strlen(Message1) < 8)
-  {
+  if (strlen(Message1) < 8) {
     lcd.setCursor(0, 0);
     lcd.print(Message1);
   }
 
-  if (strlen(Message2) < 8)
-  {
+  if (strlen(Message2) < 8) {
     lcd.setCursor(0, 1);
     lcd.println(Message2);
   }
@@ -70,37 +65,29 @@ void PrintAtLCDFunct()
 
 char cToStr[2];
 
-void MessagePlusFunct(size_t letter)
-{
+void MessagePlusFunct(size_t letter) {
   cToStr[0] = EngLetterArray[letter];
   Serial.println("message+");
 
-  if (stringNumber == 0)
-  {
+  if (stringNumber == 0) {
     Message1 = strcat(Message1, cToStr);
   }
-  else if(stringNumber == 1)
-  {
+  else if(stringNumber == 1) {
     Message2 = strcat(Message2, cToStr);
   }
   PrintAtLCDFunct();
 }
 
-void MessageMinusFunct()
-{
-  if (stringNumber == 0)
-  {
+void MessageMinusFunct() {
+  if (stringNumber == 0) {
     Message1[strlen(Message1) - 2] = '\0';
-  }
-  else
-  {
+  } else {
     Message2[strlen(Message2) - 2] = '\0';
   }
   PrintAtLCDFunct();
 }
 
-void setup()
-{
+void setup() {
   cToStr[1] = '\0';
   Message1 = "";
   Message2 = "";
@@ -124,15 +111,11 @@ void setup()
   Serial.println("Hello, World!");
 }
 
-void buttonHandle(int buttonNumber)
-{
-  if (analogRead(BUTTONS_PIN) == 0) // кнопка нажата
-  {
+void buttonHandle(int buttonNumber) {
+  if (analogRead(BUTTONS_PIN) == 0) {
     delay(20);
-    if (analogRead(BUTTONS_PIN) == 0) // кнопка все еще нажата
-    {
-      if (buttonWasPressed == 0)
-      {
+    if (analogRead(BUTTONS_PIN) == 0) {
+      if (buttonWasPressed == 0) {
         buttonWasPressed = 1;
         lastPressedButtonNumber = buttonNumber;
         Serial.println("Pressed " + String(lastPressedButtonNumber) + "button");
@@ -143,67 +126,51 @@ void buttonHandle(int buttonNumber)
       Serial.println("Button has been hold for " + String(timePressed) + " millis.");
     }
   }
-  else
-  {
-    if (buttonWasPressed == 1 && buttonNumber == lastPressedButtonNumber)
-    {
+  else {
+    if (buttonWasPressed == 1 && buttonNumber == lastPressedButtonNumber) {
       buttonWasPressed = 0;
       Serial.println("Unpressed " + String(lastPressedButtonNumber) + "button");
 
-      for (uint8_t i = 0; i < 33; i++)
-      {
+      for (uint8_t i = 0; i < 33; i++) {
         if (lastPressedButtonNumber == NumOfButton[i] 
         && (lastPressedButtonNumber != 33) 
         && (lastPressedButtonNumber != 35) 
         && (lastPressedButtonNumber != 37) 
         && (lastPressedButtonNumber != 38) 
-        && (lastPressedButtonNumber != 8))
-        {
+        && (lastPressedButtonNumber != 8)) {
           MessagePlusFunct(i);
         }
       }
 
-      if (lastPressedButtonNumber == 38)
-      {
+      if (lastPressedButtonNumber == 38) {
         stringNumber = stringNumber == 0 ? 1 : 0;
       }
-      if (lastPressedButtonNumber == 33)
-      {
+      if (lastPressedButtonNumber == 33) {
         lcd.scrollDisplayLeft();
       }
-      if (lastPressedButtonNumber == 37)
-      {
+      if (lastPressedButtonNumber == 37) {
         lcd.scrollDisplayRight();
       }
-      if (lastPressedButtonNumber == 35)
-      {
+      if (lastPressedButtonNumber == 35) {
         MessageMinusFunct();
       }
-      if (lastPressedButtonNumber == 8)
-      {
-        if(timePressed > 5000)
-        {
-          Serial.println("We ready to play");
+      if (lastPressedButtonNumber == 8) {
+        if(timePressed > 5000) {
+          Serial.println("We are ready to play");
           translator.playAllMessages(Message1, Message2);
-        }
-        else
-        {
-          Serial.println("We ready to change mode");
-          //*ADD MOOD CHANGE
+        } else {
+          Serial.println("We are ready to change mode");
         }
       }
     }
   }
 }
 
-void loop()
-{
-  for (uint8_t i = 0; i < 8; i++)
-  {
+void loop() {
+  for (uint8_t i = 0; i < 8; i++) {
     PORTB = (PORTB & 0b11111000) ^ i;
 
-    for (uint8_t j = 0; j < 8; j++)
-    {
+    for (uint8_t j = 0; j < 8; j++) {
       PORTD = (PORTD & 0b00011111) ^ (j << 5);
 
       buttonHandle(i * 8 + j);
