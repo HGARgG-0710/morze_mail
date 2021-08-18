@@ -1,15 +1,18 @@
-#include "translateToMorze.hpp"
+#include "morzeTranslator.hpp"
 
 #define BUZZER_PIN A4
 
-char MorzeAlphabet[][7] = {
-    //*Array was written, according to basic ASCII coding table
-    /*
-    0 - 31st symbols was not added, because they are used to control the process of 
-    text output on display or printer, or beeping, or doing something else.
+const char MorzeAlphabet[][7] = {
+    //* Array was written, according to basic ASCII coding table.
+
+    /**
+     * 0 - 31st symbols was not added, because they are used to control the process of 
+     * text output on display or printer, or beeping, or doing something else.
+     * Information is kept in next rows in form: 
+     * {(0|1|2) * 7} // character - its' table index
     */
 
-    {1, 1, 1, 1, 1, 1, 1}, //space - 32
+    {1, 1, 1, 1, 1, 1, 1}, // space - 32
     {2, 1, 2, 1, 2, 2, 0}, // ! - 33
     {1, 2, 1, 1, 2, 1, 0}, // " - 34
     {0, 0, 0, 0, 0, 0, 0}, // # - 35
@@ -107,63 +110,57 @@ char MorzeAlphabet[][7] = {
     //127th ASCII symbol was not added, because it's DELETE symbol
 };
 
-TranslateToMorze::TranslateToMorze(int frequency,
-                                   int dotDelay)
+MorzeTranslator::MorzeTranslator(int frequency, int dotDelay)
 {
     _freq = frequency;
     _dotDelay = dotDelay;
-
     pinMode(BUZZER_PIN, OUTPUT);
 }
 
-void TranslateToMorze::dot()
+void MorzeTranslator::dot()
 {
     tone(BUZZER_PIN, _freq, _dotDelay);
     delay(_dotDelay);
 }
 
-void TranslateToMorze::dash()
+void MorzeTranslator::dash()
 {
     tone(BUZZER_PIN, _freq, _dotDelay * 3);
     delay(_dotDelay);
 }
 
-void TranslateToMorze::playEndOfTheLetter()
+void MorzeTranslator::playEndOfTheLetter()
 {
     delay(_dotDelay * 2);
 }
 
-void TranslateToMorze::playLetter(char letter)
+void MorzeTranslator::playLetter(char letter)
 {
     for (int i = 0; i < 7; i++)
-    {
-        Serial.println("Entered for() cycle");
-        if (MorzeAlphabet[letter - 32][i] == 2) //*32 is an ASCII number of space
+        switch (MorzeAlphabet[letter - 32][i])
         {
-            Serial.println("dash");
+        case 1:
+            dot();
+            break;
+
+        case 2:
             dash();
         }
-        if (MorzeAlphabet[letter - 32][i] == 1) //*32 is an ASCII number of space
-        {
-            Serial.println("dot");
-            dot();
-        }
-        Serial.println("Left for() cycle");
-    }
 }
 
-void TranslateToMorze::playAllMessages(char * message1, char* message2)
+void MorzeTranslator::playAllMessages(char *message1, char *message2)
 {
-    for (size_t i = 0; i < strlen(message1); i++)
+    size_t i = 0;
+
+    for (; i < strlen(message1); i++)
     {
         playLetter(message1[i]);
         playEndOfTheLetter();
     }
-    Serial.println("Played 1st string");
-    for (size_t i = 0; i < strlen(message2); i++)
+
+    for (i = 0; i < strlen(message2); i++)
     {
         playLetter(message2[i]);
         playEndOfTheLetter();
     }
-    Serial.println("Played 2nd string");
 }
