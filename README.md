@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#This is repository of my project "Morze_mail"
-Here I'll post stuff for the project
-=======
+
 # This is repository of my project "Morze mail"
 
-## Here I'll post stuff for the project
->>>>>>> 17a13ac2edb73346363a261b3aff8a6f9d95ce3c
+My old morze mail project. Basically, an Arduino program, that takes an input from 32-button keyboard (connected in a certain way, of course) and repeats it with the morze code. 
