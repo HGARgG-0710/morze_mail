@@ -8,11 +8,12 @@
         {
             "name": "PlatformIO",
             "includePath": [
-                "D:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/include",
-                "D:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/src",
-                "D:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/lib/LiquidCrystal/src",
+                "d:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/include",
+                "d:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/src",
+                "d:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/.pio/libdeps/uno/LiquidCrystal/src",
                 "C:/Users/Igor Kuznetsov/.platformio/packages/framework-arduino-avr/cores/arduino",
                 "C:/Users/Igor Kuznetsov/.platformio/packages/framework-arduino-avr/variants/standard",
+                "d:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/lib/LiquidCrystal/src",
                 "C:/Users/Igor Kuznetsov/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                 "C:/Users/Igor Kuznetsov/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                 "C:/Users/Igor Kuznetsov/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
@@ -23,11 +24,12 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "D:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/include",
-                    "D:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/src",
-                    "D:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/lib/LiquidCrystal/src",
+                    "d:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/include",
+                    "d:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/src",
+                    "d:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/.pio/libdeps/uno/LiquidCrystal/src",
                     "C:/Users/Igor Kuznetsov/.platformio/packages/framework-arduino-avr/cores/arduino",
                     "C:/Users/Igor Kuznetsov/.platformio/packages/framework-arduino-avr/variants/standard",
+                    "d:/Igor Kuznetsov/Documents/Programming/projects/cpp/morze_mail/lib/LiquidCrystal/src",
                     "C:/Users/Igor Kuznetsov/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                     "C:/Users/Igor Kuznetsov/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                     "C:/Users/Igor Kuznetsov/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
@@ -37,7 +39,7 @@
                 ]
             },
             "defines": [
-                "PLATFORMIO=50101",
+                "PLATFORMIO=60106",
                 "ARDUINO_AVR_UNO",
                 "F_CPU=16000000L",
                 "ARDUINO_ARCH_AVR",

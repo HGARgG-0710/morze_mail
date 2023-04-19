@@ -1,4 +1,4 @@
-#include "morzeTranslator.hpp"
+#include "MorzeTranslator.hpp"
 
 #define BUZZER_PIN A4
 
@@ -148,6 +148,8 @@ void MorzeTranslator::playLetter(char letter)
         }
 }
 
+// TODO: generalize the entire library... 
+// * It's screaming for it ...
 void MorzeTranslator::playAllMessages(char *message1, char *message2)
 {
     size_t i = 0;
